@@ -1,7 +1,6 @@
 import allure
 from page_objects.main_page import MainPage
 
-
 class TestLogoRedirect:
     @allure.title('Проверка перехода на главную страницу при клике на лого "Самокат" в хэдере')
     def test_logo_transfer_to_main_page_success(self, driver):

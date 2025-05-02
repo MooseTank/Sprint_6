@@ -1,7 +1,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 import allure
 from selenium.webdriver.support.wait import WebDriverWait
-
+from locators.urls import BaseUrls
 from locators.main_page_locators import MainPageLocators
 from page_objects.base_page import BasePage
 
@@ -60,10 +60,6 @@ class MainPage(BasePage):
     def get_displayed_text_from_faq_answers(self, data):
         return self.get_text_on_element(MainPageLocators.faq_answers_items[data])
 
-    @allure.step('Получить адрес текущей страницы')
-    def get_current_url(self):
-        return self.driver.current_url
-
     @allure.step('Ожидание загрузки страницы "Дзен"')
     def wait_for_dzen_load(self):
-        WebDriverWait(self.driver, 20).until(EC.url_contains('https://dzen.ru'))
+        self.wait_for_page_load(BaseUrls.DZEN_URL)

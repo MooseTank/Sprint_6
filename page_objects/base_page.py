@@ -1,11 +1,13 @@
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import allure
 
 
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(self.driver, 20)
 
     @allure.step('Скролл до элемента')
     def scroll_to_element(self, locator):
@@ -35,3 +37,11 @@ class BasePage:
     @allure.step('Проверить отображение элемента')
     def check_displaying_of_element(self, locator):
         return self.driver.find_element(*locator).is_displayed()
+
+    @allure.step('Получить адрес текущей страницы')
+    def get_current_url(self):
+        return self.driver.current_url
+
+    @allure.step('Ожидание загрузки страницы')
+    def wait_for_page_load(self, url_part):
+        self.wait.until(EC.url_contains(url_part))
